@@ -38,3 +38,9 @@ else:
     mensaje = "obsesidad extrema"
 
 print(f"paciente {nombre}, tiene un IMC de {imc: 0.2f} y su condicion es {mensaje}.")
+
+## ejercicio en clase
+numero = int(input("ingrese un numero entero"))
+print(numero % 3 )
+if numero % 3 == 0:
+    print("el numero {numero} es divisible en 3")
