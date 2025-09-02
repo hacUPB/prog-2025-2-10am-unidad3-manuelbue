@@ -1,14 +1,14 @@
-# Algoritmo de la serie de Fibonacci
+# Serie de Fibonacci básica
 
-# Pedir al usuario cuántos números quiere mostrar
 n = int(input("¿Cuántos números de la serie de Fibonacci deseas ver?: "))
 
-# Definir los dos primeros números de la serie
-a, b = 0, 1
+a = 0
+b = 1
 
-print("\nSerie de Fibonacci:")
+print("Serie de Fibonacci:")
 
-# Generar la serie
 for i in range(n):
-    print(a, end=" ")  # mostrar el número
-    a, b = b, a + b    # actualizar los valores
+    print(a)       # mostramos el número actual
+    siguiente = a + b  # calculamos el siguiente
+    a = b              # movemos el valor de b a a
+    b = siguiente 
