@@ -1,9 +1,14 @@
-# determinar si un numero es par o impar
-numero = int(input("ingrese un numero entero: "))
-residuo = numero % 2
-#si residuo es 0 es par
-if residuo == 0:
-    print(numero, "es par")
-else:
-    print(numero, "es impar")    
-    
+# Algoritmo de la serie de Fibonacci
+
+# Pedir al usuario cuántos números quiere mostrar
+n = int(input("¿Cuántos números de la serie de Fibonacci deseas ver?: "))
+
+# Definir los dos primeros números de la serie
+a, b = 0, 1
+
+print("\nSerie de Fibonacci:")
+
+# Generar la serie
+for i in range(n):
+    print(a, end=" ")  # mostrar el número
+    a, b = b, a + b    # actualizar los valores
