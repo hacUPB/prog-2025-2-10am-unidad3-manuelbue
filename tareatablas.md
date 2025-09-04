@@ -47,18 +47,23 @@
 
 
 
+numero = int(input("Ingrese el numero de terminos de la serie: "))
+if numero <= 0:
+    print("Por favor ingrese un numero entero positivo")
+elif numero == 1:
+    print ("Serie de Fibonacci")
+    print(0)
+else:
+    a = 0
+    b = 1
+    contador = 2
+    print("Serie de Fibonacci")
+    print(a)
+    print(b)
 
-# Algoritmo de la serie de Fibonacci
-
-# Pedir al usuario cuántos números quiere mostrar
-n = int(input("¿Cuántos números de la serie de Fibonacci deseas ver?: "))
-
-# Definir los dos primeros números de la serie
-a, b = 0, 1
-
-print("\nSerie de Fibonacci:")
-
-# Generar la serie
-for i in range(n):
-    print(a, end=" ")  # mostrar el número
-    a, b = b, a + b    # actualizar los valores
+    while contador < numero:
+        siguiente = a + b
+        print(siguiente)
+        a = b
+        b = siguiente
+        contador += 1
