@@ -1,3 +1,18 @@
+Float (decimal) → Es un número con coma o punto decimal.
+
+Ejemplo: 75.5, 0.98, 1200.0
+
+Integer (entero) → Es un número sin decimales.
+
+Ejemplo: 1, 300, -25
+
+String (texto) → Es una palabra, frase o cualquier texto escrito entre comillas.
+
+Ejemplo: "sí", "no", "opción 1", "menu principal"
+
+
+
+
 ### 📋 Caso 1: Velocidad Mínima de Aterrizaje  
 
 | Variable     | Tipo de Dato (Entrada/Salida/Constante) | Comentario |
