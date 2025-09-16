@@ -9,6 +9,8 @@ while opcion != "S":
         match opcion:
             case "1":
                 def calcular_velocidad_aterrizaje(W, W_ref, V_ref):# sqrt = raiz cuadrada
+
+                    
                     return V_ref * math.sqrt(W / W_ref)
 
                 print(" Simulación de Velocidad de Aterrizaje en Vuelo ")

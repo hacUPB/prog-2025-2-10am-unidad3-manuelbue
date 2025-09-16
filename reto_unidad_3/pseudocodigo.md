@@ -1,6 +1,6 @@
 1.
 
-
+```
 Algoritmo VelocidadMinimaAterrizaje
     Definir función calcular_velocidad_aterrizaje(W, W_ref, V_ref):
         Retornar V_ref * sqrt(W / W_ref)
