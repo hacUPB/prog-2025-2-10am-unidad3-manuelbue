@@ -1,8 +1,6 @@
 import math # ayuda de chat para poder definir la formula con la raiz cuadrada
 #def = ayuda de ia para definir formulas de manera mas sencilla 
 
-import math
-
 opcion = "Z"
 
 # 🔹 Historial global para la opción 3
@@ -13,7 +11,6 @@ while opcion != "S":
         "1. Calcular velocidad mínima de aterrizaje\n"
         "2. Consumo de combustible en vuelo\n"
         "3. Sustentación en despegue\n"
-        "4. Ver historial de sustentaciones\n"
         "S. Salir\n"
         "Seleccione la opción que desea ejecutar: "
     ).upper()
@@ -38,7 +35,7 @@ while opcion != "S":
                     print(f"Velocidad mínima de aterrizaje: {V_landing:.2f} nudos")
 
                     if V_landing > 150:
-                        print("⚠️ Velocidad alta: considere reducir peso antes del aterrizaje.")
+                        print(" Velocidad alta: considere reducir peso antes del aterrizaje.")
 
                     continuar = input("¿Desea continuar la simulación? (Si/No): ").lower()
                     if continuar != "si":
@@ -58,7 +55,7 @@ while opcion != "S":
                     elif fase == 3:
                         tasa = 2
                     else:
-                        print("⚠️ Fase inválida, no se consumió combustible")
+                        print(" Fase inválida, no se consumió combustible")
                         tasa = 0
                     combustible -= tasa * tiempo
 
@@ -83,60 +80,70 @@ while opcion != "S":
 
             # ------------------------------------------------------
             case "3":
+                # Función para calcular sustentación
                 def calcular_sustentacion(rho, v, Cl, A):
                     return 0.5 * rho * (v**2) * Cl * A
 
-                print("\n--- SIMULACIÓN: Sustentación en Despegue ---")
+                # Variables iniciales
+                historial = []
+                salir_submenu = False
 
-                avion = {
-                    "peso": float(input("Peso del avión (N): ")),
-                    "rho": float(input("Densidad del aire (kg/m3): ")),
-                    "Cl": float(input("Coeficiente de sustentación: ")),
-                    "A": float(input("Área alar (m2): ")),
-                    "v": float(input("Velocidad inicial (m/s): ")),
-                    "aceleracion": float(input("Aceleración en pista (m/s2): "))
-                }
+                while not salir_submenu:
+                    print("\n--- MENÚ DE SUSTENTACIÓN EN DESPEGUE ---")
+                    print("1. Ejecutar nueva simulación")
+                    print("2. Ver historial de simulaciones")
+                    print("3. Salir del programa")
 
-                # 🔹 Listas de registro para esta simulación
-                velocidades = []
-                sustentaciones = []
+                    subopcion = input("Seleccione una opción: ")
 
-                while True:
-                    avion["v"] += avion["aceleracion"]
-                    L = calcular_sustentacion(avion["rho"], avion["v"], avion["Cl"], avion["A"])
+                    if subopcion == "1":
+                        print("\n--- NUEVA SIMULACIÓN ---")
 
-                    velocidades.append(avion["v"])
-                    sustentaciones.append(L)
+                        # Diccionario con los datos del avión
+                        avion = {
+                            "peso": float(input("Peso del avión (N): ")),
+                            "rho": float(input("Densidad del aire (kg/m3): ")),
+                            "Cl": float(input("Coeficiente de sustentación: ")),
+                            "A": float(input("Área alar (m2): ")),
+                            "v": float(input("Velocidad inicial (m/s): ")),
+                            "aceleracion": float(input("Aceleración en pista (m/s2): ")) }
 
-                    print(f"Velocidad = {avion['v']:.2f} m/s | Sustentación = {L:.2f} N")
+                        simulacion = []  # lista temporal para esta simulación
 
-                    if L >= avion["peso"]:
-                        print("\n ¡El avión alcanzó la sustentación suficiente y despegó!\n")
-                        break
+                        # Simulación segundo a segundo
+                        while True:
+                            avion["v"] += avion["aceleracion"]
+                            L = calcular_sustentacion(avion["rho"], avion["v"], avion["Cl"], avion["A"])
 
-                # Guardar datos en el historial global
-                historial_global.append({
-                    "parametros": avion,
-                    "velocidades": velocidades,
-                    "sustentaciones": sustentaciones
-                })
+                            registro = {"velocidad": avion["v"], "sustentacion": L}
+                            simulacion.append(registro)
 
-                print("✈️  Simulación de sustentación guardada correctamente.")
+                            print(f"Velocidad = {avion['v']:.2f} m/s | Sustentación = {L:.2f} N")
 
-            # ------------------------------------------------------
-            case "4":
-                if len(historial_global) == 0:
-                    print("\n No hay simulaciones guardadas aún.")
-                else:
-                    print("\n--- HISTORIAL DE SUSTENTACIONES ---")
-                    for i, vuelo in enumerate(historial_global, start=1):
-                        datos = vuelo["parametros"]
-                        print(f"\nSimulación #{i}:")
-                        print(f"  Peso: {datos['peso']} N | Cl: {datos['Cl']} | Área: {datos['A']} m²")
-                        print(f"  Velocidades registradas: {vuelo['velocidades']}")
-                        print(f"  Sustentaciones registradas: {vuelo['sustentaciones']}")
+                            if L >= avion["peso"]:
+                                print("\nEl avión alcanzó la sustentación suficiente y despegó.\n")
+                                break
 
-            # ------------------------------------------------------
+                        historial.append(simulacion)
+
+                        print("Resumen de la simulación:")
+                        for i, paso in enumerate(simulacion, start=1):
+                            print(f"t={i}s → V={paso['velocidad']:.2f} m/s | L={paso['sustentacion']:.2f} N")
+
+                    elif subopcion == "2":
+                        if len(historial) == 0:
+                            print("\nNo hay simulaciones registradas todavía.\n")
+                        else:
+                            print("\n--- HISTORIAL DE SIMULACIONES ---")
+                            for n, simulacion in enumerate(historial, start=1):
+                                print(f"\nSimulación #{n}")
+                                for i, paso in enumerate(simulacion, start=1):
+                                    print(f"t={i}s → V={paso['velocidad']:.2f} m/s | L={paso['sustentacion']:.2f} N")
+
+                    elif subopcion == "3":
+                        print("\nCerrando el programa desde el submenú de sustentación...\n")
+                        exit()  # termina el programa completamente
+
             case _:
                 print("\n Opción no válida.")
 
